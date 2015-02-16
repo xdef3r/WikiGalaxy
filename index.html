@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <title>WikiGalaxy: Explore Wikipedia in 3D</title>
+    <link rel="stylesheet" type="text/css" href="CSS/stylesheet.css">
+    <link rel="shortcut icon" href="textures/foundlogo.ico" />
+    <link href='http://fonts.googleapis.com/css?family=Suranna|Roboto:300' rel='stylesheet' type='text/css'>
+    <script src='jQuery/jquery.js'></script>
+    <script src='jQuery/tinyScrollBar.js'></script>
+    <script src='jQuery/circleLoad.js'></script>
+     <script>
+        var rotation = -50;
+
+        function logoTrigger() {
+            return window.setInterval(function() {
+                rotation += 1;
+                $('#circle').rotate(rotation);
+            }, 20);
+        };
+        var logotrigger = logoTrigger();
+    </script></head>
+
+<body>
+    <div class="overlay"></div>
+    <!--<div class="overlay2"></div>-->
+    <div id="logotitle">
+        <p class="title">W I K I G A L A X Y</p>
+        <div id="subtitle">100,000 wikipedia articles, 500 thematic nebulas, one galaxy.</div>
+        <div id="logoswitch">
+            <div id="circle"></div>
+            
+        </div>
+        <div id="loading" class="centered">LOADING</div>
+        <div id="start" style="display:none" class="centered"><a href="#">LAUNCH</a></div>
+    </div>
+
+    <div id="pointer"></div>
+    <div id='debug'></div>
+
+    <div id="overlayer">
+
+        <div id="staticlayer">
+            <ul>
+                <li class="fade">
+                    <a id="toggleui" style="display:none" href="#">
+                        <div>
+                            <img src="textures/icons/moon.png" />
+                        </div>
+                        <div>UI off</div>
+                    </a>
+                </li>
+                <li class="fade">
+                    <a id="fullscreen" href="#">
+                        <div>
+                            <img src="textures/icons/fullscreen.png" />
+                        </div>
+                        <div>full</div>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <div id="suggestion1"></div>
+        <div id="suggestion2"></div>
+        <div id="suggestion3"></div>
+        <div id="suggestion4"></div>
+        <div id="suggestion5"></div>
+        <div id="catsuggestion"></div>
+
+        <div id="articleGUI" style="display:none"></div>
+
+        <div id="release" class="centered" style="display:none">
+            
+        </div>
+
+
+        <div id="UIlayer" style="display:none">
+            <div id="pageTitle">
+                <span id="articlename">Pick an article</span>
+            </div>
+            <div id="wikipediaBox">
+                <div id="wikiheader">
+                    <a id='expandarticle' href="#">View fullscreen</a>
+                </div>
+                <div id="wikiInfo"></div>
+            </div>
+            <div id="nav">
+                <ul>
+                    <li class="fade">
+                        <a id="fly" href="#">
+                            <div>
+                                <img src="textures/icons/plane.png" />
+                            </div>
+                            <div>fly</div>
+                        </a>
+                    </li>
+                    <li class="fade">
+                        <a id="map" href="#">
+                            <div>
+                                <img src="textures/icons/map.png" />
+                            </div>
+                            <div>map</div>
+                        </a>
+                    </li>
+                    <li class="fade">
+                        <a id="galaxy" href="#">
+                            <div>
+                                <img src="textures/icons/galaxy.png" />
+                            </div>
+                            <div>home</div>
+                        </a>
+                    </li>
+                    <li class="fade">
+                        <a id="help" href="#">
+                            <div>
+                                <img src="textures/icons/help.png" />
+                            </div>
+                            <div>help</div>
+                        </a>
+                    </li>
+                    <li class="fade">
+                        <a id="about" href="#">
+                            <div>
+                                <img src="textures/icons/info.png" />
+                            </div>
+                            <div>about</div>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div id="links">
+                <div id="linksheader"> Article links
+                </div>
+                <div id="destination"></div>
+            </div>
+            <div id="history">
+                <div id="historyheader"> Show History<input type="checkbox" id="showhistory"></div>
+                <div id="previousvisits"></div>
+            </div>
+            <div id="helper">
+                <div id="helpertext"></div>
+            </div>
+            <div id="debug">
+                <p></p>
+            </div>
+            <div id="searchbar">
+                <form id="searchArticle">
+                    <input type="text" placeholder="Search and add articles" id="searchvalue">
+                </form>
+                <div id="searchResults"></div>
+            </div>
+            <div id="zoom">
+                <div id="zoomIn">+</div>
+                <div id="zoomOut">-</div>
+                <div id="zoomLevel">25%</div>
+            </div>
+            <div id="legend"></div>
+        </div>
+        <div id="stats"></div>
+    </div>
+
+    </div>
+    <div id="helpbox" style="display:none">
+        <div class="sidebar">
+            <ul>
+                <li class="help1"><a href="#">Navigation</a> | </li>
+                <li class="help3"><a href="#">User Interface</a></li>
+                </li>
+            </ul>
+        </div>
+        <div id="helperbox"></div>
+        <div id="help1" style="display:none">
+            <p>Welcome to Wikigalaxy, here we are using the latest 3D browser technology to bring you Wikipedia in 3D. Each dot represents a wikipedia article, and every article is linked together into a network.</p>
+            <p>There are two viewing mode available at all times: a top-down map and a first person mode.
+            <h1>Map Mode:</h1> Available by clicking the "map" icon, map mode lets you browse the galaxy from above. You can move around with the UP/DOWN/LEFT/RIGHT keys, as well as ASDW. Scrolling will zoom in and out.</p>
+            <p><h1>First Person mode:</h1> Similar to FPS video games, first person mode gives you the perspective of a character mocing in 3D space. Here moving left and right will rotate the camera, while up and down will move your forward and backwards. Scrolling will push the camera over to where the cursor is pointing, while clicking on the + and - button will change your altitude.</p>
+            <p><h1>Selecting and deselecting articles:</h1> Whatever mode you find yourself in, every visible star can be selected by clicking on it. Pressing the SPACE bar will add in more and more links. When a star is selected, movement is restricted around the orbit of that star. In this mode only links are clickable, clicking on a link will take you to another star. Clicking in empty space will deselect the current article.</p>
+             <p><h1>Viewing your history live on the map</h1>Checking the box "view history" on the history tab will show you where you've been on the map. Leaving it checked will automatically add in the last viewed article in the chain.</p>
+
+            
+        </div>
+
+        <div id="help3" style="display:none">
+            <p>
+                <h1>Search an article</h1>The search bar on the top left corner enables you to search any available article. Once you have entered a valid query, available articles will be shown below. Clicking on any of these results will take you right to the article.</p>
+            <p>
+                <h1>Add an article</h1>If searching an article doesn't give any results, you will have the option to dynamically add that article to the map. This is only temporary as added articles are deleted when you session ends.</p>
+            <p>
+                <h1>Read an article</h1>The large box on the left side of the screen enables you to read any selected article. You can use the scroll bar on the left side to scroll through the article. The top bar in orange is a link that enables you to read the article in full screen. In fullscreen mode, click close to go back.</p>
+            <p>
+                <h1>Travel through links</h1>When an article is loaded, all its links are shown on the right side of the screen. These links are ordered by how close they are on the amp, from nearest to furthest. Hovering on any of these links will show you where that link will be, by adding it on screen. Clicking on these links will lock you onto a new article.</p>
+            <p>
+                <h1>Browsing history</h1>Every article you have travelled to will be added to the history section on your right. Similarly to the link section, clicking on any of your previous searches will take you to them. On the top of this section, cliking the "view on map" button will show you every article you've visited in succession on the map.</p>
+            <p>
+                <h1>Managing tabs</h1>Excluding the navigation bar, every section on screen can be closed by clicking the white border. Hovering your mouse on will expand the border, cliking it will close that tab. Clicking on that tab will reopen that section any time you wish.</p>
+
+        </div>
+        <div id="help4" style="display:none">
+            
+        </div>
+
+        <div class="clear"></div>
+
+    </div>
+
+    <div id="aboutbox" style="display:none">
+        <div class="sidebar">
+            <ul>
+                <li class="choice1"><a href="#">Inspiration</a> | </li>
+                <li class="choice4"><a href="#">Creation</a> | </li>
+                <li class="choice2"><a href="#">Future</a> | </li>
+                <li class="choice3"><a href="#">Thanks</a>
+                </li>
+            </ul>
+        </div>
+        <div id="content"></div>
+        <div id="content1" style="display:none">
+            <p>N/A</p>
+        </div>
+
+        <div id="content2" style="display:none">
+            <p><h1>Features added on jan 2015:</h1> Stars are now colored according to their categories, you may also dynamically add an article that is missing from the graph. "Wikipedia:", "User:", "Category:" and other "non-articles" have been removed for added relevancy. Additional controls have been added for zooming and vertical movement in FPS mode.
+            </p>
+            <p>
+                <h1>Virtual reality:</h1> If I can get my hands on a developer kit, I'd like to intergrate Oculus Rift capabilities to truly immerse yourself in the graph.</p>
+            <p>
+                <h1>Other players:</h1> All the moving dots you see now are bots, but I'd like to add in a user infrastructure so that you can see what others are reading by following them in the graph.</p>
+            <p>
+                <h1>User behavior:</h1> If this is done, I'd like to study how user-traffic differs between this and the classic wikipedia interface. It would be fascinating to see how users move through the network and learn with Wikipedia.</p>
+        </div>
+
+        <div id="content3" style="display:none">
+            <p>WikiGalaxy is not affiliated with Wikipedia or the Wikimedia foundation, but it relies on the wikipedia API to fetch most of its information. This project and many others couldn't be made possible without the contribution of countless users, or Wikipedia's drive to deliver all this content to you. See how you can support wikipedia here:</p>
+            <p><a>http://wikimediafoundation.org/wiki/Ways_to_Give</a>
+            </p>
+            <p>I'd like to thank Yael Ben Dov for her expert UX help on this interface, Mr Doob for building and updating Three JS, which made this all possible.</p>
+            <p>Top 100,000 most popular pages graciously provided by <a href="http://www.andrew-g-west.com/">Andrew G. West</a>, who manages the weekly <a href="http://en.wikipedia.org/wiki/User:West.andrew.g/Popular_pages">top 5000 wikipedia pages.</a></p>
+            <p>Graph category colors generated with the help of <a href="https://www.linkedin.com/profile/view?id=109140945">Jacopo Farina</a>, thanks to his 2010 <a href="http://airwiki.ws.dei.polimi.it/index.php/Wikipedia_Category_Graph">project</a> at Politecnico di Milano.</p>
+            <p>Icons from the noun project by Geoff R, P.J. Onori, Kiril Tomilov, Ilsur Aptukov, John Chapman</p>
+            <p>Article clustering made with OpenOrd by S. Martin, W. M. Brown, R. Klavans, and K. Boyack (to appear, 2011), “OpenOrd: An Open-Source Toolbox for Large Graph Layout,” SPIE Conference on Visualization and Data Analysis (VDA).</p>
+        </div>
+
+        <div id="content4" style="display:none">
+            <p>This visualization was made over several months, here are the various technical steps taken to achieve this.</p>
+            <p>There are several ways to extract data from wikipedia, all I needed are article names, their IDs, their categories and links. I started out with the monthly wikipedia dumps and parsed them with WikiXMLJ in Java to evaluate the scale of the task and see how everything was structured. I then created various URL requests for the Wikipedia PHP API and called them with a Python script with Urllib3. I then translated these into a .dot graph file, containing articles IDs and all their links.</p>
+            <p>This was then imported into Gephi which uses GraphViz. I thoroughly tested out every graph configuration, weighing performance, readability and scalability. I ended up choosing OpenOrd, which quickly gives good results for clustering without crushing nodes together. The resulting graph was exported into the GDV format, which includes XY coordinates, and converted into a compact JSON file with another Python script.</p>
+            <p>The most fun part was building a graph visualization tool with Three.js, a comprehensive WebGL library. It is simple enough to avoid the complexity of OpenGL (UV mapping, texturing, camera controls). I still had to do a lot of trigonometry, setting viewing angles, raycasting to find nodes, movement and animations, placing labels etc. The user interface on top uses the same aformentioned Wikipedia API requests, most of the information displayed on screen is dynamically called, organised and loaded in with this API.</p>
+            <p>I had no knowledge of how to do most this before starting this out, this (naively) began as a desktop application built entirely in Java which ended up being disatrous. I learned to never build something just because I already know how to, but to start with a crazy idea and learn everything I can to make it possible. Thanks for reading through this, I hope you do the same and make something you're proud of, and if not, have the courage to change and start over.</p>
+        </div>
+        <div class="clear"></div>
+
+    </div>
+    <div id="fullScreenArticle" style="display:none">
+        <div id="fullScreenContent"></div>
+    </div>
+    <div id="close" style='display:none'>
+        <div class="fade">
+            <a href="#">
+                <div>
+                    <img src="textures/icons/back.png" />
+                </div>
+                <div>back</div>
+            </a>
+        </div>
+    </div>
+
+    <div id="noWebGL" style="display:none">
+        <p>Hello, there seems to be a problem with your browser.</p>
+        <p>WikiGalaxy visualizes wikipedia data in three dimensions. This requires webGL, a cutting edge technology all new web browsers support</p>
+        <p>See how you can activate webGL or update your browser here:</p>
+        <a href='http://get.webgl.org' class='warninglink'>http://get.webgl.org</a>
+    </div>
+    
+     <script> $('.title').circleType({radius:520});
+        $('#subtitle').circleType({radius:520,dir:-1});
+        $('#circle').circleProgress({
+    startAngle:-Math.PI/2,
+    thickness:2,
+    value: 1,
+    size:200,
+    animate:false,
+    fill: {gradient:["#f90058","#bf8bff","#07d6a1","#ff9a00","#ffff66","#0292ef"]}
+    });
+
+    </script>
+    <script src='scripts/WebGLtest.js'></script>
+    <script src='scripts/Session.js'></script>
+    <script src='scripts/Stats.js'></script>
+    <script src='scripts/MyWikipediaAPI.js'></script>
+    <script src='scripts/Article.js'></script>
+    <script src='Three/three.js'></script>
+    <script src='Three/stats.js'></script>
+    <script src='scripts/Collisions.js'></script>
+    <script src='Three/THREEx.KeyboardState.js'></script>
+    <script src='Three/THREEx.WindowResize.js'></script>
+    <script src='Three/THREEx.FullScreen.js'></script>
+    <script src='scripts/Galaxy.js'></script>
+    <script src='scripts/OrbitControl.js'></script>
+    <script src='scripts/UI.js'></script>
+    <script src='scripts/main.js'></script>
+</body>
+
+</html>
